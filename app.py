@@ -2,13 +2,12 @@ import requests
 from flask import Flask, request, jsonify, render_template, session
 from flask_session import Session
 
-
 # Your OpenAI API key
 api_key = ''  # Replace with your actual OpenAI API key
 
 # Initialize Flask application
 app = Flask(__name__)
-app.secret_key = 'ingenicows'  # Replace with your own secret key
+app.secret_key = 'ingenico-ws'  # Replace with your own secret key
 
 # Flask-Session configuration
 app.config["SESSION_PERMANENT"] = False
@@ -23,7 +22,7 @@ def get_gpt4_response(conversation_history):
         "Authorization": f"Bearer {api_key}"
     }
     data = {
-        "model": "gpt-3.5-turbo", ## This is where you can change the models
+        "model": "gpt-4", ## This is where you can change the models
         "messages": conversation_history,
         "max_tokens": 300,
         "temperature": 0.4,
@@ -63,12 +62,8 @@ def home():
 
     # For a GET request, just render the chat page
     return render_template('index.html', conversation_history=session.get('conversation_history', []))
+
 @app.route('/clear_session', methods=['POST'])
 def clear_session():
     session.clear()  # This clears the session
     return jsonify(success=True)
-
-
-# Run the app
-if __name__ == '__main__':
-    app.run()
