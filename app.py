@@ -4,7 +4,7 @@ from flask_session import Session
 
 
 # Your OpenAI API key
-api_key = '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'  # Replace with your actual OpenAI API key
+api_key = ''  # Replace with your actual OpenAI API key
 
 # Initialize Flask application
 app = Flask(__name__)
